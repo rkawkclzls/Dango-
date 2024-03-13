@@ -76,23 +76,15 @@ graph TD;
 ## 시스템 아키텍쳐
 ```mermaid
 graph TD;
-    Client[클라이언트<br>웹 브라우저] -->|HTTP 요청| 웹 서버];
-    NGINX -->|정적 자원 요청| Static[정적 파일<br>CSS, JS];
-    NGINX -->|동적 요청| Django[Django 애플리케이션 서버];
-    Django -->|데이터 처리 요청| DB[(데이터베이스)];
-    Django -->|템플릿 렌더링| Templates[템플릿<br>HTML];
-    Templates -->|생성된 HTML| Client;
-    Static -->|정적 파일 응답| Client;
-    DB -->|데이터 응답| Django;
-    
-  
-    Django
-    DB
-    Static
-    
-    
-    style Client fill:#f9f,stroke:#333,stroke-width:4px
-    style Server Side fill:#bbf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+    Client[클라이언트<br>웹 브라우저] -->|HTTP 요청| NGINX[NGINX<br>웹 서버]
+    NGINX -->|정적 자원 요청| Static[정적 파일<br>CSS, JS, 이미지]
+    NGINX -->|동적 요청| Django[Django 애플리케이션 서버]
+    Django -->|데이터 처리 요청| DB[(데이터베이스<br>SQLite, PostgreSQL 등)]
+    Django -->|템플릿 렌더링| Templates[템플릿<br>HTML]
+    Templates -->|생성된 HTML| Client
+    Static -->|정적 파일 응답| Client
+    DB -->|데이터 응답| Django
+
 ```
 
 
