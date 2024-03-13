@@ -60,17 +60,15 @@ gantt
 ## 의존성 그래프
 ```mermaid
 graph TD;
-    Django[Django 프레임워크] --> DjangoModels[Django 모델]
-    Django --> DjangoViews[Django 뷰]
-    Django --> DjangoTemplates[Django 템플릿]
-    DjangoTemplates --> Bootstrap[Bootstrap]
-    Django --> DjangoAdmin[Django 관리자 인터페이스]
-    DjangoAdmin --> Bootstrap
-    Bootstrap --> CSS[CSS 스타일링]
-    Bootstrap --> JS[JavaScript 동작]
-    
-    DjangoModels --> DB[데이터베이스]
-    DjangoViews --> DjangoTemplates
+    Client[클라이언트<br>웹 브라우저] -->|HTTP 요청| NGINX[NGINX<br>웹 서버]
+    NGINX -->|정적 자원 요청| Static[정적 파일<br>CSS, JS, 이미지]
+    NGINX -->|동적 요청| Django[Django 애플리케이션 서버]
+    Django -->|데이터 처리 요청| DB[(데이터베이스)]
+    Django -->|템플릿 렌더링| Templates[템플릿<br>HTML]
+    Templates -->|생성된 HTML| Client
+    Static -->|정적 파일 응답| Client
+    DB -->|데이터 응답| Django
+
 ```
 
 ## 시스템 아키텍쳐
