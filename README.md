@@ -74,7 +74,7 @@ graph TD;
 ## 시스템 아키텍쳐
 ```mermaid
 graph TD;
-    Client[클라이언트<br>웹 브라우저] -->|HTTP 요청| 웹 서버]
+    Client[클라이언트<br>웹 브라우저] -->|HTTP 요청| NGINX[NGINX<br>웹 서버]
     NGINX -->|정적 자원 요청| Static[정적 파일<br>CSS, JS, 이미지]
     NGINX -->|동적 요청| Django[Django 애플리케이션 서버]
     Django -->|데이터 처리 요청| DB[(데이터베이스)]
@@ -82,6 +82,7 @@ graph TD;
     Templates -->|생성된 HTML| Client
     Static -->|정적 파일 응답| Client
     DB -->|데이터 응답| Django
+
 
 ```
 
