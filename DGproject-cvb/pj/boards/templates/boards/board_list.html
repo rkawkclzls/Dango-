@@ -1,0 +1,55 @@
+{% extends "boards/base.html" %}
+
+{% block contents %}
+<div class="row mt-3">
+    <div class="col-9">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <div class="col-3 text-right">
+        <p><strong>{{ username }}</strong>님 환영합니다.</p>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-12">
+        <table class="table table-light">
+            <thead class="thead-light text-dark">
+                <tr>
+                    <th>#</th>
+                    <th>제목</th>
+                    <th>아이디</th>
+                    <th>일시</th>
+                    <th>수정</th>
+                    <th>삭제</th>
+                </tr>
+            </thead>
+            {% for board in boards %}
+            <tbody class="text-dark">
+                <tr onclick="location.href='/boards/detail/{{ board.id }}'">
+                    <th>{{ board.id }}</th>
+                    <td>{{ board.title }}</td>
+                    <td>{{ board.writer.username }}</td>
+                    <td>{{ board.created_at }}</td>
+                    <td>
+                        <a href="{% url 'board_update' board.id %}" class="btn btn-primary">수정</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'board_delete' board.id %}" class="btn btn-danger">삭제</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <button class="btn btn-primary" onclick="location.href='/boards/write/'">글쓰기</button>
+    </div>
+</div>
+{% endblock %}

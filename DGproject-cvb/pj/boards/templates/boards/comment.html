@@ -1,0 +1,26 @@
+<hr>
+<div class="form-group">
+    <label>작성자</label>
+    <input type="text" class="form-control" value="{{ comment.author }}" readonly>
+    <label>댓글</label>
+    <textarea class="form-control" readonly>{{ comment.comment }}</textarea>
+</div>
+
+<!-- 대댓글 작성 폼 -->
+<form action="{% url 'boards:comment_create' board.pk comment.pk %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label>대댓글 작성</label>
+        <textarea name="comment" class="form-control" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">작성</button>
+</form>
+
+<!-- 대댓글 표시 -->
+<div style="margin-left: 40px;">
+    {% for child_comment in comment.child_comments.all %}
+        {% with comment=child_comment %}
+            {% include "boards/comment.html" %}
+        {% endwith %}
+    {% endfor %}
+</div>

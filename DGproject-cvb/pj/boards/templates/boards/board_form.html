@@ -1,0 +1,14 @@
+{% extends "boards/base.html" %}
+
+{% block contents %}
+<div class="row mt-5">
+    <div class="col-12">
+        <h2>Update Post</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">수정</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

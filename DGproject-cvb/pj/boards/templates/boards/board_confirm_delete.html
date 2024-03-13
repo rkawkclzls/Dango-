@@ -1,0 +1,14 @@
+{% extends "boards/base.html" %}
+
+{% block contents %}
+<div class="row mt-5">
+    <div class="col-12">
+        <h2>게시글 삭제를 원하십니까?</h2>
+        <form method="POST" action="{% url 'board_delete' object.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">예,삭제하겠습니다.</button>
+            <a href="{% url 'board_detail' object.id %}" class="btn btn-primary">아니오</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

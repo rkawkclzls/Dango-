@@ -1,0 +1,67 @@
+{% extends "boards/base.html" %}
+
+{% block extra_css %}
+<style>
+.replyForm {
+    display: none;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+window.onload = function() {
+    var replyButtons = document.querySelectorAll('.reply-btn');
+    replyButtons.forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            var replyForm = this.nextElementSibling;
+            replyForm.style.display = replyForm.style.display === 'none' ? 'block' : 'none';
+        });
+    });
+};
+</script>
+{% endblock %}
+
+{% block contents %}
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="form-group">
+                <label for="title">제목</label>
+                <input type="text" class="form-control" id="title" value="{{ board.title }}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="contents">내용</label>
+                <textarea class="form-control" rows="10" readonly>{{ board.contents }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="tags">태그</label>
+                <span id="tags" class="form-control">
+                    {{ board.tags.all|join:"," }}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <form method="POST" action="{% url 'comment_write' board.id %}" id="commentForm">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="comment">댓글</label>
+            <textarea class="form-control" id="comment" name="comment" rows="1"></textarea>
+        </div>
+        <input type="hidden" id="parent" name="parent">
+        <input type="submit" value="댓글 입력" class="btn btn-primary mt-3">
+    </form>
+
+    {% for comment in comment_view %}
+        <div class="comment">
+            <strong>{{ comment.author }}</strong>
+            <p>{{ comment.comment }}</p>
+            <a href="#" class="reply-btn" data-id="{{ comment.id }}">답글 달기</a>
+        </div>
+    {% endfor %}
+
+    <button class="btn btn-primary mt-3" onclick="location.href='/boards/list/'">돌아가기</button>
+    </div>
+</div>
+{% endblock %}
