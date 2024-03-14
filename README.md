@@ -57,19 +57,7 @@ gantt
 5. 게시물 상세 보기/댓글 작성
 6. 게시물 수정/삭제
 
-## 의존성 그래프
-```mermaid
-graph TD;
-    Client[클라이언트<br>웹 브라우저] -->|HTTP 요청| NGINX[NGINX<br>웹 서버]
-    NGINX -->|정적 자원 요청| Static[정적 파일<br>CSS, JS, 이미지]
-    NGINX -->|동적 요청| Django[Django 애플리케이션 서버]
-    Django -->|데이터 처리 요청| DB[(데이터베이스)]
-    Django -->|템플릿 렌더링| Templates[템플릿<br>HTML]
-    Templates -->|생성된 HTML| Client
-    Static -->|정적 파일 응답| Client
-    DB -->|데이터 응답| Django
 
-```
 
 ## 시스템 아키텍쳐
 ```mermaid
